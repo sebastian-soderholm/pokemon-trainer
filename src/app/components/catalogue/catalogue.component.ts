@@ -9,7 +9,7 @@ import TrianerService from 'src/app/services/trainer.service';
   styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnInit {
-  private _pokemon: Pokemon[] = [];
+  // private _pokemon: Pokemon[] = [];
 
   constructor(
     private readonly pokemonService: PokemonService,
@@ -17,10 +17,10 @@ export class CatalogueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pokemonService.fetchPokemons(50, 0);
+    this.loadMorePokemons()
   }
   loadMorePokemons(){
-    this.pokemonService.fetchPokemons(50, this._pokemon.length);
+    this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
   }
   loadPokemonInfo(id: number): void {
     this.pokemonService.fetchPokemonInfo(id)
@@ -33,12 +33,12 @@ export class CatalogueComponent implements OnInit {
 
   }
   get pokemons(): Pokemon[] {
-    this._pokemon = this.pokemonService.getPokemons();
-    this._pokemon.sort((a,b) => {
+    const pokemons = this.pokemonService.getPokemons();
+    pokemons.sort((a,b) => {
       return a.id - b.id
     })
     // console.log(this._pokemon)
-    return this._pokemon
+    return pokemons
   }
 
 }

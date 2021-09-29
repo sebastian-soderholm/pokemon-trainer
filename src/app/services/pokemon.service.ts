@@ -78,9 +78,13 @@ export class PokemonService {
     const pokemonIndex = this._pokemons.findIndex(pokemon => pokemon.id === id);
     return this._pokemons[pokemonIndex]
   }
+  public getNumOfFetchedPokemons(): number {
+    return this._pokemons.length
+  }
   public error(): string {
     return this._error;
   }
+
 
   // PokemonAPI = {
   //   // GET: user from DB
