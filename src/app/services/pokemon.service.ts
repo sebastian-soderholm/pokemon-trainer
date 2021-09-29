@@ -16,10 +16,8 @@ export class PokemonService {
   constructor(private readonly http: HttpClient) {}
 
   public fetchPokemons(limit: number, offset: number): void {
-    if (limit + offset > 898) {
-      console.log("Cannot load more pokemons")
-      return
-    }
+    //Check if there are pokemons left
+    if (limit + offset > 898) limit = 898 - offset
 
     this.http
       .get(`${this._apiURL}/pokemon?limit=${limit}&offset=${offset}`)
