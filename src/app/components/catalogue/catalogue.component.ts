@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Pokemon, PokemonInfo } from 'src/app/models/pokemon.model';
+import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import TrianerService from 'src/app/services/trainer.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -9,13 +10,17 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 })
 export class CatalogueComponent implements OnInit {
   private _pokemon: Pokemon[] = [];
-  constructor(private readonly pokemonService: PokemonService) {}
+
+  constructor(
+    private readonly pokemonService: PokemonService,
+    private readonly trainerService: TrianerService
+  ) {}
 
   ngOnInit(): void {
-    this.pokemonService.fetchPokemons(500, 0);
+    this.pokemonService.fetchPokemons(50, 0);
   }
   loadMorePokemons(){
-    this.pokemonService.fetchPokemons(390, this._pokemon.length);
+    this.pokemonService.fetchPokemons(50, this._pokemon.length);
   }
   loadPokemonInfo(id: number): void {
     this.pokemonService.fetchPokemonInfo(id)
@@ -23,7 +28,9 @@ export class CatalogueComponent implements OnInit {
   }
   addPokemonToTrainer(id: number): void {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
-    console.log("Catch pokemon: " + JSON.stringify(pokemonToCatch.name))
+    this.trainerService.addCollectedPokemon(pokemonToCatch)
+    console.log("Caught pokemon: " + JSON.stringify(this.trainerService.getCollectedPokemons()))
+
   }
   get pokemons(): Pokemon[] {
     this._pokemon = this.pokemonService.getPokemons();
