@@ -2,6 +2,24 @@
 
 <ul>
   <li *ngFor="let pokemon of pokemons">
-    {{ pokemon.name }}
+    <p>Name: {{ pokemon.name }}</p>
+    <p>Id: {{ pokemon.id }}</p>
+    <img src="{{pokemon.imageURL}}" />
+
+    <button (click)="addPokemonToTrainer(pokemon.id)">Catch pokemon!</button>
+    <hr>
+    <button (click)="loadPokemonInfo(pokemon.id)">More info</button>
+    <div *ngIf="pokemon.info">
+      <table>
+        <tr>
+          <th>Height</th>
+          <th>Weight</th>
+        </tr>
+        <tr>
+          <td>{{pokemon.info.height}}</td>
+          <td>{{pokemon.info.weight}}</td>
+        </tr>
+      </table>
+    </div>
   </li>
 </ul>
