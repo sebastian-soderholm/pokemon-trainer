@@ -9,7 +9,7 @@ import TrianerService from 'src/app/services/trainer.service';
   styleUrls: ['./trainer.component.scss']
 })
 export class TrainerComponent implements OnInit {
-  private _collectedPokemons: Pokemon[] = []
+  // private _collectedPokemons: Pokemon[] = []
 
   constructor(
     private readonly pokemonService: PokemonService,
@@ -17,12 +17,20 @@ export class TrainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._collectedPokemons = this.trainerService.getCollectedPokemons()
+    this.trainerService.getCollectedPokemons()
+  }
+
+  removeCollectedPokemon(id: number): void {
+    // console.log("Before removing " + JSON.stringify(this.trainerService.getCollectedPokemons()))
+
+    this.trainerService.removeCollectedPokemon(id)
+
+    // console.log("After removing " + JSON.stringify(this._collectedPokemons))
+
   }
 
   get collectedPokemons(): Pokemon[] {
-    this._collectedPokemons = this.trainerService.getCollectedPokemons()
-    return this._collectedPokemons
+    return this.trainerService.getCollectedPokemons()
   }
 
 }

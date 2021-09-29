@@ -1,6 +1,9 @@
 <h1>Collected Pokemons</h1>
 <ul>
   <li *ngFor="let pokemon of collectedPokemons">
-    <p>{{pokemon.name}}</p>
+    <p>Id: {{pokemon.id}}</p>
+    <p>Name: {{pokemon.name}}</p>
+    <img src="{{pokemon.imageURL}}" />
+    <button (click)="removeCollectedPokemon(pokemon.id)">Remove pokemon</button>
   </li>
 </ul>
