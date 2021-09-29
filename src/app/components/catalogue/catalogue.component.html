@@ -5,9 +5,9 @@
     <p>Name: {{ pokemon.name }}</p>
     <p>Id: {{ pokemon.id }}</p>
     <img src="{{pokemon.imageURL}}" />
-
+    <br>
     <button (click)="addPokemonToTrainer(pokemon.id)">Catch pokemon!</button>
-    <hr>
+    <br>
     <button (click)="loadPokemonInfo(pokemon.id)">More info</button>
     <div *ngIf="pokemon.info">
       <table>
@@ -23,3 +23,4 @@
     </div>
   </li>
 </ul>
+<button (click)="loadPokemons()">Load more</button>
