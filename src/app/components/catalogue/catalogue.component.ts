@@ -12,11 +12,10 @@ export class CatalogueComponent implements OnInit {
   constructor(private readonly pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.pokemonService.fetchPokemons(15, 7);
-
-    // [1,2,3,4,5,6].forEach((num: number) => {
-    //   this.pokemonService.fetchPokemon(num);
-    // });
+    this.pokemonService.fetchPokemons(10, 0);
+  }
+  loadPokemons(){
+    this.pokemonService.fetchPokemons(10, this._pokemon.length);
   }
   loadPokemonInfo(id: number): void {
     this.pokemonService.fetchPokemonInfo(id)
