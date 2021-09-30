@@ -13,7 +13,7 @@ export class StartComponent implements OnInit {
   private _username: string = '';
 
   constructor(
-        private readonly trainerService: TrainerService, 
+        private readonly trainerService: TrainerService,
         private readonly router: Router) { }
 
   ngOnInit(): void {
