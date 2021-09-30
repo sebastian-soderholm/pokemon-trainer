@@ -1,1 +1,12 @@
-<p>start works!</p>
+<div class="container">
+    <p>Login page</p>
+    <form #loginUser="ngForm" (ngSubmit)="onLoginClick(loginUser.value.username)">
+        <label class="form-label" for="usename">Please type your username</label>
+        <input class="form-control" type="text" id="usename" name="username" ngModel #username="ngModel">
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <span *ngIf="isLogging">Logging in..</span>&nbsp;
+    <span *ngIf="isLogging" class="spinner-border" role="status">
+    </span>
+</div>

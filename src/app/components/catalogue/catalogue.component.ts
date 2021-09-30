@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
-import TrianerService from 'src/app/services/trainer.service';
+import { SessionService } from 'src/app/services/session.service';
+import TrainerService from 'src/app/services/trainer.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -13,12 +14,18 @@ export class CatalogueComponent implements OnInit {
 
   constructor(
     private readonly pokemonService: PokemonService,
-    private readonly trainerService: TrianerService
+    private readonly trainerService: TrainerService,
+    private readonly sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
     this.loadMorePokemons()
   }
+
+  get loggedIn(): boolean {
+    return this.sessionService.loggedIn;
+  }
+
   loadMorePokemons(){
     this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
   }
