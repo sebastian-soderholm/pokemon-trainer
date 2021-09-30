@@ -13,10 +13,10 @@ export class CatalogueComponent implements OnInit {
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly trainerService: TrainerService,
-    private readonly sessionService: SessionService
+    private readonly sessionService: SessionService,
   ) {}
   ngOnInit(): void {
-    this.loadMorePokemons()
+    this.pokemonService.fetchPokemons(50, 0);
   }
   loadMorePokemons(){
     this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
