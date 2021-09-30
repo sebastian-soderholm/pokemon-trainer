@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import TrainerService from 'src/app/services/trainer.service';
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { SessionService } from 'src/app/services/session.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-start',
@@ -13,7 +13,7 @@ export class StartComponent implements OnInit {
   private _username: string = '';
 
   constructor(
-        private readonly trainerService: TrainerService,
+        private readonly loginService: LoginService,
         private readonly router: Router,
         private readonly sessionService: SessionService) { }
 
@@ -23,11 +23,11 @@ export class StartComponent implements OnInit {
   }
 
   get isLogging(): boolean {
-		return this.trainerService.tryingToLog;
+		return this.loginService.tryingToLog;
 	}
 
   public onLoginClick(loginUser: NgForm){
-    this.trainerService.handleLogin(loginUser, async () => {
+    this.loginService.handleLogin(loginUser, async () => {
       await this.router.navigate(['catalogue'])
     });
 
