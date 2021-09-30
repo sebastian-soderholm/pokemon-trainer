@@ -9,7 +9,6 @@ import TrainerService from 'src/app/services/trainer.service';
   styleUrls: ['./trainer.component.scss']
 })
 export class TrainerComponent implements OnInit {
-  private _collectedPokemons: Pokemon[] = []
 
   constructor(
     private readonly pokemonService: PokemonService,
@@ -17,12 +16,15 @@ export class TrainerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._collectedPokemons = this.trainerService.getCollectedPokemons()
+    this.trainerService.getCollectedPokemons()
+  }
+
+  removeCollectedPokemon(id: number): void {
+    this.trainerService.removeCollectedPokemon(id)
   }
 
   get collectedPokemons(): Pokemon[] {
-    this._collectedPokemons = this.trainerService.getCollectedPokemons()
-    return this._collectedPokemons
+    return this.trainerService.getCollectedPokemons()
   }
 
 }

@@ -68,6 +68,11 @@ export class TrainerService {
   public addCollectedPokemon(pokemon: Pokemon) {
     this._collectedPokemons.push(pokemon)
   }
+  public removeCollectedPokemon(id: number) {
+    this._collectedPokemons = this._collectedPokemons.filter(pokemon => {
+      return pokemon.id !== id
+    })
+  }
   public getCollectedPokemons(): Pokemon[] {
     return this._collectedPokemons
   }

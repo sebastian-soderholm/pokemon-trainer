@@ -39,6 +39,7 @@ export class PokemonService {
         }
       );
   }
+
   public fetchPokemonInfo(pokemonId: number) {
     //Fetch pokemon's info
     this.http.get<Pokemon>(`${this._apiURL}/pokemon/${pokemonId}/`).subscribe(
