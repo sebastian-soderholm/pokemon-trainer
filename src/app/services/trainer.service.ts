@@ -57,7 +57,6 @@ export class TrainerService {
 					this.error = error;
 				}
 			)
-
   }
 
   public setName(name: string) {

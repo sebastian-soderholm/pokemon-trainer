@@ -10,8 +10,6 @@ import TrainerService from 'src/app/services/trainer.service';
   styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnInit {
-  // private _pokemon: Pokemon[] = [];
-
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly trainerService: TrainerService,
@@ -37,14 +35,12 @@ export class CatalogueComponent implements OnInit {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
     this.trainerService.addCollectedPokemon(pokemonToCatch)
     console.log("Caught pokemon: " + JSON.stringify(this.trainerService.getCollectedPokemons()))
-
   }
   get pokemons(): Pokemon[] {
     const pokemons = this.pokemonService.getPokemons();
     pokemons.sort((a,b) => {
       return a.id - b.id
     })
-    // console.log(this._pokemon)
     return pokemons
   }
 
