@@ -9,7 +9,6 @@ import TrianerService from 'src/app/services/trainer.service';
   styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnInit {
-  // private _pokemon: Pokemon[] = [];
 
   constructor(
     private readonly pokemonService: PokemonService,
@@ -37,7 +36,6 @@ export class CatalogueComponent implements OnInit {
     pokemons.sort((a,b) => {
       return a.id - b.id
     })
-    // console.log(this._pokemon)
     return pokemons
   }
 
