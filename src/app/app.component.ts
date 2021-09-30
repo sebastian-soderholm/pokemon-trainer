@@ -4,7 +4,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  //Add app-root styles to global scope
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {

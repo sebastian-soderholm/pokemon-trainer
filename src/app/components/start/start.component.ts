@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import TrainerService from 'src/app/services/trainer.service';
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-start',
@@ -13,9 +14,12 @@ export class StartComponent implements OnInit {
 
   constructor(
         private readonly trainerService: TrainerService,
-        private readonly router: Router) { }
+        private readonly router: Router,
+        private readonly sessionService: SessionService) { }
 
   ngOnInit(): void {
+    if(this.sessionService.loggedIn)
+      this.router.navigate(['catalogue'])
   }
 
   get isLogging(): boolean {
