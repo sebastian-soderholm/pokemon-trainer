@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { SessionService } from 'src/app/services/session.service';
 import TrainerService from 'src/app/services/trainer.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class TrainerComponent implements OnInit {
 
   constructor(
     private readonly pokemonService: PokemonService,
-    private readonly trainerService: TrainerService
+    private readonly trainerService: TrainerService,
+    private readonly sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,12 @@ export class TrainerComponent implements OnInit {
 
   get collectedPokemons(): Pokemon[] {
     return this.trainerService.getCollectedPokemons()
+  }
+  get loggedIn(): boolean {
+    return this.sessionService.loggedIn;
+  }
+  get loggedInUser(): any {
+    return this.sessionService.user
   }
 
 }
