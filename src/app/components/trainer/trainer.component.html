@@ -1,4 +1,5 @@
-<h1>Collected Pokemons</h1>
+<!-- If logged in check not required, because logged out user redirects to front page? -->
+<h3>Pokemons for trainer: {{loggedInUser.username}}</h3>
 <ul>
   <li *ngFor="let pokemon of collectedPokemons">
     <p>Id: {{pokemon.id}}</p>

@@ -1,7 +1,5 @@
-<p>catalogue works!</p>
-
-<h3 *ngIf="loggedIn">Session storage works!!</h3>
-
+<!-- If logged in check not required, because logged out user redirects to front page? -->
+<h3 *ngIf="loggedIn">Logged in!</h3>
 <ul>
   <li *ngFor="let pokemon of pokemons">
     <p>Name: {{ pokemon.name }}</p>
