@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { StartComponent } from './components/start/start.component';
 import { TrainerComponent } from './components/trainer/trainer.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,11 +17,13 @@ const routes: Routes = [
   },
   {
     path: 'catalogue',
-    component: CatalogueComponent
+    component: CatalogueComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'trainer',
-    component: TrainerComponent
+    component: TrainerComponent,
+    canActivate: [AuthGuard]
   }
 
 ];
