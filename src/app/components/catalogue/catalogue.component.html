@@ -1,5 +1,7 @@
 <p>catalogue works!</p>
 
+<h3 *ngIf="loggedIn">Session storage works!!</h3>
+
 <ul>
   <li *ngFor="let pokemon of pokemons">
     <p>Name: {{ pokemon.name }}</p>
