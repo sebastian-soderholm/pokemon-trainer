@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/pokemon.model';
 import { PokemonService } from 'src/app/services/pokemon.service';
-import TrianerService from 'src/app/services/trainer.service';
+import TrainerService from 'src/app/services/trainer.service';
 
 @Component({
   selector: 'app-trainer',
@@ -13,7 +13,7 @@ export class TrainerComponent implements OnInit {
 
   constructor(
     private readonly pokemonService: PokemonService,
-    private readonly trainerService: TrianerService
+    private readonly trainerService: TrainerService
   ) {}
 
   ngOnInit(): void {
