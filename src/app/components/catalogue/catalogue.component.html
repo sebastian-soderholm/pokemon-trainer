@@ -3,12 +3,13 @@
 <ul>
   <li *ngFor="let pokemon of pokemons">
     <p>Name: {{ pokemon.name }}</p>
-    <p>Id: {{ pokemon.id }}</p>
     <img src="{{pokemon.imageURL}}" />
+    <p *ngIf="pokemonIsCollected(pokemon.id)">Pokemon is collected!</p>
     <br>
     <button (click)="addPokemonToTrainer(pokemon.id)">Catch pokemon!</button>
     <br>
     <button (click)="loadPokemonInfo(pokemon.id)">More info</button>
+    <span *ngIf="loadingInfo" class="spinner-border" role="status"></span>
     <div *ngIf="pokemon.info">
       <table>
         <tr>
@@ -24,3 +25,4 @@
   </li>
 </ul>
 <button (click)="loadMorePokemons()">Load more</button>
+<span *ngIf="loadingPokemons" class="spinner-border" role="status"></span>

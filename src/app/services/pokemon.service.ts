@@ -12,27 +12,28 @@ export class PokemonService {
   private _imgApiURL: string = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
   private _pokemons: Pokemon[] = [];
   private _error: string = '';
+  private _loadingInfo = false;
+  private _loadingPokemons = false;
 
   constructor(private readonly http: HttpClient, private readonly pokemonSessionStorage: PokemonSessionService) {}
 
   public fetchPokemons(limit: number, offset: number): void {
-
     //Check if highest Id to fetch exceeds available highest Id
     if (limit + offset > 898) limit = 898 - offset
 
     //If more pokemons in SessionStorage than requested, fetch all pokemons from SessionStorage
     if(limit + offset <= this.pokemonSessionStorage.amountOfPokemons()) {
-      console.log("limit + offset: " +limit + offset)
+      console.log("limit + offset: " + (limit + offset))
       console.log("Fetching pokemons from SessionStorage... Amount in storage: " + this.pokemonSessionStorage.amountOfPokemons())
       this._pokemons = this.pokemonSessionStorage.pokemons
     } else {
+      this._loadingPokemons = true
       console.log("Fetching pokemons from API...")
 
       this.http
       .get(`${this._apiURL}/pokemon?limit=${limit}&offset=${offset}`)
       .subscribe(
         (returnObj: any) => {
-          let fetchedPokemons: Pokemon[] = []
           //Loop through results to get URLs
           returnObj.results.map((element: any, index: number) => {
             this._pokemons.push({
@@ -50,15 +51,12 @@ export class PokemonService {
           this._error = error.message;
         }
       );
-
+      this._loadingPokemons = false
     }
-
-
-
-
   }
 
   public fetchPokemonInfo(pokemonId: number) {
+    this._loadingInfo = true;
     //Fetch pokemon's info
     this.http.get<Pokemon>(`${this._apiURL}/pokemon/${pokemonId}/`).subscribe(
       (pokemonData: any) => {
@@ -72,6 +70,7 @@ export class PokemonService {
         this._error = error.message;
       }
     );
+    // this._loadingInfo = false;
   }
   public getPokemons(): Pokemon[] {
     return this._pokemons;
@@ -85,5 +84,11 @@ export class PokemonService {
   }
   public error(): string {
     return this._error;
+  }
+  get loadingPokemons(): boolean {
+    return this._loadingPokemons
+  }
+  get loadingInfo(): boolean {
+    return this._loadingInfo
   }
 }

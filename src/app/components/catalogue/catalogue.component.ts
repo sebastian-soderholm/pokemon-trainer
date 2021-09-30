@@ -15,20 +15,25 @@ export class CatalogueComponent implements OnInit {
     private readonly trainerService: TrainerService,
     private readonly sessionService: SessionService,
   ) {}
+
   ngOnInit(): void {
     this.pokemonService.fetchPokemons(50, 0);
   }
   loadMorePokemons(){
     this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
   }
-  loadPokemonInfo(id: number): void {
+  loadPokemonInfo(id: number) {
     this.pokemonService.fetchPokemonInfo(id)
-    console.log(JSON.stringify(this.pokemonService.getPokemon(id)))
   }
-  addPokemonToTrainer(id: number): void {
+  addPokemonToTrainer(id: number) {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
     this.trainerService.addCollectedPokemon(pokemonToCatch)
     console.log("Caught pokemon: " + JSON.stringify(this.trainerService.getCollectedPokemons()))
+  }
+  pokemonIsCollected(id: number): boolean {
+    const collectedPokemons = this.trainerService.getCollectedPokemons()
+    //If collected pokemons has one with id, return true
+    return collectedPokemons.filter(pokemon => pokemon.id === id).length > 0
   }
   get pokemons(): Pokemon[] {
     const pokemons = this.pokemonService.getPokemons();
@@ -43,5 +48,14 @@ export class CatalogueComponent implements OnInit {
   get loggedInUser(): any {
     return this.sessionService.user
   }
+  get loadingPokemons(): boolean {
+    return this.pokemonService.loadingPokemons
+  }
+  get loadingInfo(): boolean {
+    return this.pokemonService.loadingInfo
+  }
+
+
+
 
 }
