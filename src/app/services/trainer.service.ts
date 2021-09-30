@@ -30,7 +30,7 @@ export class TrainerService {
     const headers = new HttpHeaders({
       'x-api-key': apiKey
     })
-    return this.http.post<User>(`${apiURL}/trainers`, { username }, { headers })
+    return this.http.post<User>(`${apiURL}/trainers`, { username, pokemon:[] }, { headers })
   }
 
   public handleLogin(username: NgForm, onSuccess: () => void): void {
