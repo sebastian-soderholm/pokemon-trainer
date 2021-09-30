@@ -4,6 +4,7 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 import { SessionService } from 'src/app/services/session.service';
 import TrainerService from 'src/app/services/trainer.service';
 
+
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',

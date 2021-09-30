@@ -70,7 +70,7 @@ export class PokemonService {
         this._error = error.message;
       }
     );
-    // this._loadingInfo = false;
+    this._loadingInfo = false;
   }
   public getPokemons(): Pokemon[] {
     return this._pokemons;
