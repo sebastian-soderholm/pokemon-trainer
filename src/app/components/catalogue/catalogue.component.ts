@@ -18,9 +18,6 @@ export class CatalogueComponent implements OnInit {
   ngOnInit(): void {
     this.loadMorePokemons()
   }
-  get loggedIn(): boolean {
-    return this.sessionService.loggedIn;
-  }
   loadMorePokemons(){
     this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
   }
@@ -39,6 +36,12 @@ export class CatalogueComponent implements OnInit {
       return a.id - b.id
     })
     return pokemons
+  }
+  get loggedIn(): boolean {
+    return this.sessionService.loggedIn;
+  }
+  get loggedInUser(): any {
+    return this.sessionService.user
   }
 
 }
