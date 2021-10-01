@@ -1,5 +1,4 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
 import { Injectable } from '@angular/core';
 import { Pokemon, PokemonInfo } from '../models/pokemon.model';
 import { PokemonSessionService } from './pokemon-session.service';
@@ -63,7 +62,14 @@ export class PokemonService {
         const pokemonIndex = this._pokemons.findIndex(pokemon => pokemon.id === pokemonId);
         this._pokemons[pokemonIndex].info = <PokemonInfo> {
           height: pokemonData.height,
-          weight: pokemonData.weight
+          weight: pokemonData.weight,
+          exp: pokemonData.base_experience,
+          hp: pokemonData.stats[0].base_stat,
+          attack: pokemonData.stats[1].base_stat,
+          defense: pokemonData.stats[2].base_stat,
+          specialAttack: pokemonData.stats[3].base_stat,
+          specialDefense: pokemonData.stats[4].base_stat,
+          speed: pokemonData.stats[5].base_stat,
         }
       },
       (error: HttpErrorResponse) => {
@@ -85,10 +91,17 @@ export class PokemonService {
   public error(): string {
     return this._error;
   }
+
+  public removePokemonInfo(id: number) {
+    this._pokemons.forEach(pokemon => {
+      if(pokemon.id === id) pokemon.info = undefined
+    })
+  }
   get loadingPokemons(): boolean {
     return this._loadingPokemons
   }
   get loadingInfo(): boolean {
     return this._loadingInfo
   }
+
 }
