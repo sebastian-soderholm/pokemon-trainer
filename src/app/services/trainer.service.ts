@@ -58,6 +58,7 @@ export class TrainerService {
     this._collectedPokemons = this._collectedPokemons.filter(pokemon => {
       return pokemon.id !== id
     })
+    this.handlePatch()
   }
   public getCollectedPokemons(): Pokemon[] {
     return this._collectedPokemons
