@@ -47,7 +47,7 @@ export class LoginService {
         .subscribe(
                     (user: User) => { // Success
                         if(user.id)
-                onSuccess()
+                           onSuccess()
                     },
                     (error: string) => { // error
                         this.error = error;

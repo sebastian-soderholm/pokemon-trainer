@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { unescapeIdentifier } from "@angular/compiler";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Pokemon } from "../models/pokemon.model";
-
-
+import { User } from "../models/user.models";
+import { SessionService } from "./session.service";
 
 const apiURL = 'https://noroff-assignment-api-lit.herokuapp.com'
 const apiKey = "ByvuHqRoCVXC9G9Z06xa3ec9rDXYgZyJZRDXJ9k3arjVxy2AuUXX6c34Z2dgnlx2";
@@ -13,8 +15,39 @@ const apiKey = "ByvuHqRoCVXC9G9Z06xa3ec9rDXYgZyJZRDXJ9k3arjVxy2AuUXX6c34Z2dgnlx2
 export class TrainerService {
   private _collectedPokemons: Pokemon[] = []
   private _name: string = "";
+  public loadingPokemons: boolean = false;
 
-  constructor(private readonly http: HttpClient){}
+  constructor(
+    private readonly http: HttpClient, 
+    private readonly sessionService: SessionService
+    ){
+    }
+
+  private updateAPIPokemons(pokemons: Pokemon[], userid: number): Observable<User> {
+    const headers = new HttpHeaders({
+      'x-api-key': apiKey
+      })
+      return this.http.patch<User>(`${apiURL}/trainers/${userid}`,
+       { pokemon: pokemons }, { headers })
+  }
+
+  private async handlePatch() {
+    return await this.updateAPIPokemons(this._collectedPokemons, this.sessionService.user!.id)
+      .subscribe(user => {
+        this.sessionService.setUser(user)
+        return user
+      })
+  }
+
+  public async addCollectedPokemon(pokemon: Pokemon) {
+    this._collectedPokemons.push(pokemon)
+
+    await this.updateAPIPokemons(this._collectedPokemons, this.sessionService.user!.id)
+      .subscribe(user => {
+        this.sessionService.setUser(user)
+      })
+      
+  }
 
   public setName(name: string) {
     this._name = name
@@ -22,9 +55,7 @@ export class TrainerService {
   public getName(): string {
     return this._name
   }
-  public addCollectedPokemon(pokemon: Pokemon) {
-    this._collectedPokemons.push(pokemon)
-  }
+  
   public removeCollectedPokemon(id: number) {
     this._collectedPokemons = this._collectedPokemons.filter(pokemon => {
       return pokemon.id !== id
