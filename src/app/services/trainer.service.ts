@@ -21,6 +21,8 @@ export class TrainerService {
     private readonly http: HttpClient, 
     private readonly sessionService: SessionService
     ){
+      if(this.sessionService.user !== undefined)
+        this._collectedPokemons = this.sessionService.user.pokemon
     }
 
   private updateAPIPokemons(pokemons: Pokemon[], userid: number): Observable<User> {
@@ -35,17 +37,13 @@ export class TrainerService {
     return await this.updateAPIPokemons(this._collectedPokemons, this.sessionService.user!.id)
       .subscribe(user => {
         this.sessionService.setUser(user)
-        return user
       })
   }
 
   public async addCollectedPokemon(pokemon: Pokemon) {
     this._collectedPokemons.push(pokemon)
 
-    await this.updateAPIPokemons(this._collectedPokemons, this.sessionService.user!.id)
-      .subscribe(user => {
-        this.sessionService.setUser(user)
-      })
+    await this.handlePatch()
       
   }
 
