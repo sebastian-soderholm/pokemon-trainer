@@ -1,27 +1,35 @@
-<div class="container" >
-  <div class="row" >
-    <div style="text-align: center;" class="col-md-3 col-sm-4 col-xs-6" *ngFor="let pokemon of pokemons" [ngClass]="{'collected': pokemonIsCollected(pokemon.id)}">
-      <h4>{{ pokemon.name }}</h4>
-      <img src="{{pokemon.imageURL}}" />
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-sm-4 col-xs-6 pokemon" *ngFor="let pokemon of pokemons">
+      <div class="pokemon-display" (click)="addPokemonToTrainer(pokemon.id)"
 
-      <!-- Image from https://pixabay.com/vectors/pokemon-pokeball-pokemon-go-1536849/ (no credits required) -->
-      <img *ngIf="pokemonIsCollected(pokemon.id)" width="20" src="/assets/pokeball.png" />
+        [ngClass]="{'collected': pokemonIsCollected(pokemon.id)}">
+        <h4 class="name">{{ pokemon.name }}</h4>
 
-      <button (click)="addPokemonToTrainer(pokemon.id)">Catch pokemon!</button>
-      <button (click)="loadPokemonInfo(pokemon.id)">More info</button>
+        <div class="image">
+          <img src="{{pokemon.imageURL}}" />
+        </div>
 
-      <div *ngIf="pokemon.info" class="info">
-        <table>
-          <tr>
-            <th>Height</th>
-            <th>Weight</th>
-          </tr>
-          <tr>
-            <td>{{pokemon.info.height}}</td>
-            <td>{{pokemon.info.weight}}</td>
-          </tr>
-        </table>
+        <div class="pokeball">
+          <!-- Image from https://pixabay.com/vectors/pokemon-pokeball-pokemon-go-1536849/ (no credits required) -->
+          <img *ngIf="pokemonIsCollected(pokemon.id)" src="/assets/pokeball.png" />
+        </div>
+
       </div>
+
+      <button class="pokemon-info" (click)="loadPokemonInfo(pokemon.id)">More info</button>
+        <div *ngIf="pokemon.info" class="info">
+          <table>
+            <tr>
+              <th>Height</th>
+              <th>Weight</th>
+            </tr>
+            <tr>
+              <td>{{pokemon.info.height}}</td>
+              <td>{{pokemon.info.weight}}</td>
+            </tr>
+          </table>
+        </div>
     </div>
   </div>
 </div>
@@ -29,4 +37,3 @@
   <button (click)="loadMorePokemons()">Load more</button>
   <div *ngIf="loadingPokemons" class="spinner-border" role="status"></div>
 </div>
-

@@ -2,6 +2,29 @@ table {
   width: 100%;
   text-align: center;
 }
+.pokemon {
+  text-align: center;
+  transition: .10s;
+  padding: 2%;
+}
+.pokemon .name {
+  font-size: 15px;
+}
+.pokemon image {
+  width: 100%;
+}
+.pokemon-display:hover {
+  background-color: lightgray;
+  cursor: pointer;
+  transition: .10s;
+}
+.pokemon-display {
+  width: 100%;
+}
+.pokeball > img {
+  width: 20px;
+  float: right;
+}
 .collected {
   background-color: lightgray;
 }
