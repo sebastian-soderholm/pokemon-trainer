@@ -11,6 +11,8 @@ import TrainerService from 'src/app/services/trainer.service';
   styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnInit {
+  public showMoreInfoPokemonId = 0
+
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly trainerService: TrainerService,
@@ -25,6 +27,7 @@ export class CatalogueComponent implements OnInit {
   }
   loadPokemonInfo(id: number) {
     this.pokemonService.fetchPokemonInfo(id)
+    this.showMoreInfoPokemonId = id
   }
   addPokemonToTrainer(id: number) {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
@@ -35,6 +38,9 @@ export class CatalogueComponent implements OnInit {
     const collectedPokemons = this.trainerService.getCollectedPokemons()
     //If collected pokemons has one with id, return true
     return collectedPokemons.filter(pokemon => pokemon.id === id).length > 0
+  }
+  hideInfo(id: number) {
+    this.pokemonService.removePokemonInfo(id)
   }
   get pokemons(): Pokemon[] {
     const pokemons = this.pokemonService.getPokemons();

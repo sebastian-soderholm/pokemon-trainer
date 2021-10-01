@@ -9,4 +9,12 @@ export interface Pokemon {
 export interface PokemonInfo {
   height: number;
   weight: number;
+  exp: number;
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+
 }
