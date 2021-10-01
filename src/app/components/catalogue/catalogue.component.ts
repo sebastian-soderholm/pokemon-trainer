@@ -4,31 +4,43 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 import { SessionService } from 'src/app/services/session.service';
 import TrainerService from 'src/app/services/trainer.service';
 
+
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
   styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnInit {
+  public showMoreInfoPokemonId = 0
+
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly trainerService: TrainerService,
-    private readonly sessionService: SessionService
+    private readonly sessionService: SessionService,
   ) {}
+
   ngOnInit(): void {
-    this.loadMorePokemons()
+    this.pokemonService.fetchPokemons(50, 0);
   }
   loadMorePokemons(){
     this.pokemonService.fetchPokemons(50, this.pokemonService.getNumOfFetchedPokemons());
   }
-  loadPokemonInfo(id: number): void {
+  loadPokemonInfo(id: number) {
     this.pokemonService.fetchPokemonInfo(id)
-    console.log(JSON.stringify(this.pokemonService.getPokemon(id)))
+    this.showMoreInfoPokemonId = id
   }
-  addPokemonToTrainer(id: number): void {
+  addPokemonToTrainer(id: number) {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
     this.trainerService.addCollectedPokemon(pokemonToCatch)
     console.log("Caught pokemon: " + JSON.stringify(this.trainerService.getCollectedPokemons()))
+  }
+  pokemonIsCollected(id: number): boolean {
+    const collectedPokemons = this.trainerService.getCollectedPokemons()
+    //If collected pokemons has one with id, return true
+    return collectedPokemons.filter(pokemon => pokemon.id === id).length > 0
+  }
+  hideInfo(id: number) {
+    this.pokemonService.removePokemonInfo(id)
   }
   get pokemons(): Pokemon[] {
     const pokemons = this.pokemonService.getPokemons();
@@ -43,5 +55,14 @@ export class CatalogueComponent implements OnInit {
   get loggedInUser(): any {
     return this.sessionService.user
   }
+  get loadingPokemons(): boolean {
+    return this.pokemonService.loadingPokemons
+  }
+  get loadingInfo(): boolean {
+    return this.pokemonService.loadingInfo
+  }
+
+
+
 
 }

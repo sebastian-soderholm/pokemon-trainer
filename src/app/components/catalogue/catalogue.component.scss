@@ -1,0 +1,53 @@
+.info {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  text-align: center;
+  z-index: 9999;
+  background-color: white;
+  box-shadow: 0 0 1px 3px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+.info-close {
+  float: right;
+}
+.info-loading {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+.info table {
+  width: 100%;
+  text-align: center;
+}
+.info table {
+  width: 100%;
+  text-align: center;
+}
+.pokemon {
+  text-align: center;
+  transition: .10s;
+  padding: 2%;
+}
+.pokemon .name {
+  font-size: 15px;
+}
+.pokemon-display {
+  transition: .15s;
+}
+.pokemon-display:hover {
+  background-color: lightgray;
+  cursor: pointer;
+  transition: .15s;
+}
+.pokeball {
+  position: relative;
+  float: right;
+  bottom: 25px;
+}
+.pokeball > img {
+  width: 20px;
+}
+.collected {
+  background-color: lightgray;
+}

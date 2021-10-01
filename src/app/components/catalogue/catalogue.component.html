@@ -1,26 +1,47 @@
-<!-- If logged in check not required, because logged out user redirects to front page? -->
-<h3 *ngIf="loggedIn">Logged in!</h3>
-<ul>
-  <li *ngFor="let pokemon of pokemons">
-    <p>Name: {{ pokemon.name }}</p>
-    <p>Id: {{ pokemon.id }}</p>
-    <img src="{{pokemon.imageURL}}" />
-    <br>
-    <button (click)="addPokemonToTrainer(pokemon.id)">Catch pokemon!</button>
-    <br>
-    <button (click)="loadPokemonInfo(pokemon.id)">More info</button>
-    <div *ngIf="pokemon.info">
-      <table>
-        <tr>
-          <th>Height</th>
-          <th>Weight</th>
-        </tr>
-        <tr>
-          <td>{{pokemon.info.height}}</td>
-          <td>{{pokemon.info.weight}}</td>
-        </tr>
-      </table>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-sm-4 col-xs-6 pokemon " *ngFor="let pokemon of pokemons">
+      <div class="pokemon-display" (click)="addPokemonToTrainer(pokemon.id)"
+        [ngClass]="{'collected': pokemonIsCollected(pokemon.id)}">
+
+        <h3 class="name">{{ pokemon.name }}</h3>
+
+        <div class="image animate__animated animate__zoomInDown">
+          <img src="{{pokemon.imageURL}}" />
+        </div>
+
+        <span class="pokeball ">
+          <!-- Image from https://pixabay.com/vectors/pokemon-pokeball-pokemon-go-1536849/ (no credits required) -->
+          <img *ngIf="pokemonIsCollected(pokemon.id)" src="/assets/pokeball.png" class="animate__animated animate__rotateIn" />
+        </span>
+      </div>
+
+      <button class="pokemon-info" (click)="loadPokemonInfo(pokemon.id)">More info</button>
+
+        <div *ngIf="pokemon.info && pokemon.id === showMoreInfoPokemonId" class="info animate__animated animate__rubberBand">
+
+          <button (click)="hideInfo(pokemon.id)" class="btn-close info-close"></button>
+          <h3 class="name">{{ pokemon.name }}</h3>
+          <div class="image">
+            <img src="{{pokemon.imageURL}}" />
+          </div>
+          <table>
+              <tr *ngIf="pokemon.info.height"><td>Height</td> <td>{{pokemon.info.height}}</td></tr>
+              <tr *ngIf="pokemon.info.weight"><td>Weight</td> <td>{{pokemon.info.weight}}</td></tr>
+              <tr *ngIf="pokemon.info.exp"><td>Exp</td> <td>{{pokemon.info.exp}}</td></tr>
+              <tr *ngIf="pokemon.info.hp"><td>HP</td> <td>{{pokemon.info.hp}}</td></tr>
+              <tr *ngIf="pokemon.info.attack"><td>Attack</td> <td>{{pokemon.info.attack}}</td></tr>
+              <tr *ngIf="pokemon.info.defense"><td>Defense</td> <td>{{pokemon.info.defense}}</td></tr>
+              <tr *ngIf="pokemon.info.specialAttack"><td>Sepcial Attack</td> <td>{{pokemon.info.specialAttack}}</td></tr>
+              <tr *ngIf="pokemon.info.specialDefense"><td>Special Defence</td> <td>{{pokemon.info.specialDefense}}</td></tr>
+              <tr *ngIf="pokemon.info.speed"><td>Speed</td> <td>{{pokemon.info.speed}}</td></tr>
+          </table>
+        </div>
     </div>
-  </li>
-</ul>
-<button (click)="loadMorePokemons()">Load more</button>
+  </div>
+</div>
+<div style="text-align: center;">
+  <button (click)="loadMorePokemons()">Load more</button>
+
+</div>
