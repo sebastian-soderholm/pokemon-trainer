@@ -2,6 +2,18 @@ table {
   width: 100%;
   text-align: center;
 }
+.pokemon {
+  transition: .10s;
+}
+.pokemon:hover {
+  background-color: red;
+  cursor: pointer;
+  transition: .10s;
+}
+.pokeball {
+  width: 20px;
+}
+
 .collected {
   background-color: lightgray;
 }
