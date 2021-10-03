@@ -4,7 +4,7 @@ import { NgForm } from "@angular/forms";
 import { Observable, of, throwError } from "rxjs";
 import { User } from "../models/user.models";
 import { SessionService } from "./session.service";
-import { catchError, finalize, map, retry, switchMap, tap } from "rxjs/operators";
+import { catchError, finalize, switchMap, tap } from "rxjs/operators";
 
 const apiURL = 'https://noroff-assignment-api-lit.herokuapp.com'
 const apiKey = "ByvuHqRoCVXC9G9Z06xa3ec9rDXYgZyJZRDXJ9k3arjVxy2AuUXX6c34Z2dgnlx2";
@@ -18,7 +18,7 @@ export class LoginService {
 
     constructor(private readonly http: HttpClient, private sessionService: SessionService){}
 
-    private checkUser(username: NgForm): Observable<User[]> {
+    private checkUser(username: NgForm | string ): Observable<User[]> {
         return this.http.get<User[]>(`${apiURL}/trainers?username=${username}`)
     }
 
@@ -31,7 +31,6 @@ export class LoginService {
 
     public handleLogin(username: NgForm, onSuccess: () => void): void {
         this.tryingToLog = true
-
         this.checkUser(username)
         .pipe(
             switchMap((users: User[]) => {
