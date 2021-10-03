@@ -22,12 +22,9 @@ export class PokemonService {
 
     //If more pokemons in SessionStorage than requested, fetch all pokemons from SessionStorage
     if(limit + offset <= this.pokemonSessionStorage.amountOfPokemons()) {
-      console.log("limit + offset: " + (limit + offset))
-      console.log("Fetching pokemons from SessionStorage... Amount in storage: " + this.pokemonSessionStorage.amountOfPokemons())
       this._pokemons = this.pokemonSessionStorage.pokemons
     } else {
       this._loadingPokemons = true
-      console.log("Fetching pokemons from API...")
 
       this.http
       .get(`${this._apiURL}/pokemon?limit=${limit}&offset=${offset}`)

@@ -32,7 +32,6 @@ export class CatalogueComponent implements OnInit {
   addPokemonToTrainer(id: number) {
     const pokemonToCatch = this.pokemonService.getPokemon(id)
     this.trainerService.addCollectedPokemon(pokemonToCatch)
-    console.log("Caught pokemon: " + JSON.stringify(this.trainerService.getCollectedPokemons()))
   }
   pokemonIsCollected(id: number): boolean {
     const collectedPokemons = this.trainerService.getCollectedPokemons()
