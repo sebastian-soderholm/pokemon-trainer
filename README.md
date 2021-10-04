@@ -1,6 +1,22 @@
 # PokemonTrainer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+SPA created with Angular, where user can login with a username, catch pokemons on the catalogue page and view/remove pokemons on the trainer page.
+
+##Start page
+
+- Insert username to login. 
+- If username exists in database, previously catched pokemons will be loaded to the user's trainer page.
+
+##Trainer page
+
+- View catched pokemons and remove a catched pokemon by selecting "Remove".
+
+##Catalogue page
+
+- View all available pokemons and load more pokemons by selecting "Click here to load more". 
+- View more info of any given pokemon by selecting "More info"
+- Catch a pokemon by selecting it. Only pokemons that are not catched can be added to the trainer page.
+- Catched pokemons are shown with a pokeball icon.
 
 ## Development server
 
