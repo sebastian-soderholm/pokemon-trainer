@@ -2,6 +2,8 @@
 
 SPA created with Angular, where user can login with a username, catch pokemons on the catalogue page and view/remove pokemons on the trainer page.
 
+Page is running on Heroku: https://safe-garden-82726.herokuapp.com/start
+
 ##Start page
 
 - Insert username to login. 
