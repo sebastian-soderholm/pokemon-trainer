@@ -12,11 +12,11 @@ export class NavbarComponent implements OnInit {
   constructor(private readonly sessionService: SessionService) { }
 
   ngOnInit(): void {
+    // Checks if user is logged in 
     this.loggedIn = this.sessionService.loggedIn 
   }
 
-  //loggedIn: boolean = this.sessionService.loggedIn 
-
+  // Handles log out click
   public logOut(): void {
     this.sessionService.logout()
   }

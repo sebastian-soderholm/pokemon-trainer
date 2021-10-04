@@ -25,7 +25,7 @@ export class PokemonService {
       this._pokemons = this.pokemonSessionStorage.pokemons
     } else {
       this._loadingPokemons = true
-
+      // Else fetch pokemons from API
       this.http
       .get(`${this._apiURL}/pokemon?limit=${limit}&offset=${offset}`)
       .subscribe(
@@ -40,7 +40,7 @@ export class PokemonService {
               info: undefined,
             });
           });
-
+          // Updates fetched pokemons to session storage
           this.pokemonSessionStorage.setPokemons(this._pokemons)
         },
         (error: HttpErrorResponse) => {
@@ -51,9 +51,9 @@ export class PokemonService {
     }
   }
 
+  // Function fetches pokemon's information
   public fetchPokemonInfo(pokemonId: number) {
     this._loadingInfo = true;
-    //Fetch pokemon's info
     this.http.get<Pokemon>(`${this._apiURL}/pokemon/${pokemonId}/`).subscribe(
       (pokemonData: any) => {
         const pokemonIndex = this._pokemons.findIndex(pokemon => pokemon.id === pokemonId);
@@ -75,28 +75,41 @@ export class PokemonService {
     );
     this._loadingInfo = false;
   }
+
+  // Returns pokemons
   public getPokemons(): Pokemon[] {
     return this._pokemons;
   }
+
+  // Return pokemon by id
   public getPokemon(id: number): Pokemon {
     const pokemonIndex = this._pokemons.findIndex(pokemon => pokemon.id === id);
     return this._pokemons[pokemonIndex]
   }
+
+  // Returns number of fetched pokemons
   public getNumOfFetchedPokemons(): number {
     return this._pokemons.length
   }
+
+  // Returns occured error
   public error(): string {
     return this._error;
   }
 
+  // Removes pokemons information
   public removePokemonInfo(id: number) {
     this._pokemons.forEach(pokemon => {
       if(pokemon.id === id) pokemon.info = undefined
     })
   }
+
+  // Returns is pokemons loading
   get loadingPokemons(): boolean {
     return this._loadingPokemons
   }
+
+  // Returns is information loading
   get loadingInfo(): boolean {
     return this._loadingInfo
   }

@@ -18,14 +18,17 @@ export class StartComponent implements OnInit {
         private readonly sessionService: SessionService) { }
 
   ngOnInit(): void {
+    // Check if user is logged in, logged in user is rerouted to catalogue page
     if(this.sessionService.loggedIn)
       this.router.navigate(['catalogue'])
   }
 
+  // Returns if user is trying to log in 
   get isLogging(): boolean {
 		return this.loginService.tryingToLog;
 	}
 
+  // Handles log in and on success log in reroutes user to catalogue page
   public onLoginClick(loginUser: NgForm){
     this.loginService.handleLogin(loginUser, async () => {
       await this.router.navigate(['catalogue'])

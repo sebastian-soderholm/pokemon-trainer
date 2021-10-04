@@ -18,10 +18,12 @@ export class LoginService {
 
     constructor(private readonly http: HttpClient, private sessionService: SessionService){}
 
+    // GET fetch to check if user is in API
     private checkUser(username: NgForm | string ): Observable<User[]> {
         return this.http.get<User[]>(`${apiURL}/trainers?username=${username}`)
     }
 
+    // POST request to create new user
     private createUser(username: NgForm): Observable<User> {
         const headers = new HttpHeaders({
         'x-api-key': apiKey
@@ -29,26 +31,33 @@ export class LoginService {
         return this.http.post<User>(`${apiURL}/trainers`, { username, pokemon:[] }, { headers })
     }
 
+    // Checks first if user exists in API, if not creates new user
     public handleLogin(username: NgForm, onSuccess: () => void): void {
         this.tryingToLog = true
+        // Checks if user already in API
         this.checkUser(username)
         .pipe(
             switchMap((users: User[]) => {
+            // If users exists returns user 
             if (users.length)
                 return of(users[0])
-
+            
+            // New user is created if user is not it API, returns created user
             return this.createUser(username)
             }),
+            // Sets returned user from GET/POST call
             tap(user => this.sessionService.setUser(user)),
             catchError((user: User) => throwError(`Could not create ${user}`)),
             finalize(() => this.tryingToLog = false)
         )
         .subscribe(
-                    (user: User) => { // Success
+                    (user: User) => {
+                        // On success returns void function
                         if(user.id)
                            onSuccess()
                     },
-                    (error: string) => { // error
+                    (error: string) => {
+                        // On error set error
                         this.error = error;
                     }
                 )
