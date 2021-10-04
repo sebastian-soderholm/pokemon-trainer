@@ -8,13 +8,13 @@
         <h3 class="name">{{ pokemon.name }}</h3>
 
         <div class="image animate__animated animate__zoomInDown">
-          
+
           <img src="{{pokemon.imageURL}}" />
           <span class="pokeball">
             <!-- Image from https://pixabay.com/vectors/pokemon-pokeball-pokemon-go-1536849/ (no credits required) -->
             <img *ngIf="pokemonIsCollected(pokemon.id)" src="/assets/pokeball.png" class="animate__animated animate__rotateIn img-ball" />
           </span>
-          
+
         </div>
 
       </div>
@@ -22,7 +22,7 @@
       <button class="pokemon-info btn btn-warning btn-sm btn-outline-dark mt-1" (click)="loadPokemonInfo(pokemon.id)">More info</button>
 
       <div class="">
-        <div *ngIf="pokemon.info && pokemon.id === showMoreInfoPokemonId" class="info animate__animated animate__rubberBand">
+        <div *ngIf="pokemon.info && pokemon.id === showMoreInfoPokemonId" class="info animate__animated animate__fadeInDown">
 
           <button (click)="hideInfo(pokemon.id)" class="btn-close info-close"></button>
           <h3 class="name">{{ pokemon.name }}</h3>
@@ -41,13 +41,13 @@
               <tr *ngIf="pokemon.info.speed"><td>Speed</td> <td>{{pokemon.info.speed}}</td></tr>
           </table>
         </div>
-      </div>  
+      </div>
     </div>
   </div>
 
   <div class="load-more mb-3" style="text-align: center;">
     <button class="btn btn-warning btn-outline-dark col-6" (click)="loadMorePokemons()">Click here to load more</button>
-  
+
   </div>
 
 </div>

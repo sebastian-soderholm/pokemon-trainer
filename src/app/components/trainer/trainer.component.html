@@ -4,7 +4,7 @@
   <div class="row text-center justify-content-center">
     <div *ngFor="let pokemon of collectedPokemons" class="col-md-2 col-sm-4 col-xs-6 pokemon">
       <h3 class="text-center">{{pokemon.name}}</h3>
-      <img src="{{pokemon.imageURL}}" />
+      <img class="animate__animated animate__zoomInDown" src="{{pokemon.imageURL}}" />
       <button class="btn btn-dark btn-outline-warning" (click)="removeCollectedPokemon(pokemon.id)">Remove</button>
     </div>
   </div>
